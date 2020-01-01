@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>netctoss</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>main</servlet-name>
+  	<servlet-class>
+  		web.MainServlet
+  	</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>main</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 每页显示行数 -->
+  <context-param>
+  	<param-name>size</param-name>
+  	<param-value>5</param-value>
+  </context-param>  
+  
+  <!-- 
+    异常的配置方式：
+  		1.根据异常类型指定错误页面；
+  		2.根据异常编号指定错误页面；
+   exception-type：异常的类型。
+   error-code：错误编号。
+   location：转发的页面(绝对路径)。
+    转发的绝对路径：
+       错误：/netctoss/WEB-INF/error.jsp
+    因为转发只局限在项目内部，因此服务器
+    认为没必要加项目名，它会自动补充项目名。
+      正确：/WEB-INF/error.jsp
+  -->
+  <!-- 
+  <error-page>
+  	 <exception-type>
+  		java.lang.Exception
+  	 </exception-type>
+  	 <location>/WEB-INF/error.jsp</location>
+  </error-page>
+  -->
+  <error-page>
+  	 <error-code>404</error-code>
+  	 <location>/WEB-INF/error.jsp</location>
+  </error-page>
+  <error-page>
+  	 <error-code>405</error-code>
+  	 <location>/WEB-INF/error.jsp</location>
+  </error-page>
+  <error-page>
+  	 <error-code>500</error-code>
+  	 <location>/WEB-INF/error.jsp</location>
+  </error-page>
+  
+  <!-- 登录检查过滤器 -->
+  <filter>
+  	<filter-name>login</filter-name>
+  	<filter-class>
+  		web.LoginFilter
+  	</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>login</filter-name>
+  	<url-pattern>*.do</url-pattern>
+  </filter-mapping>  
+  
+</web-app>
